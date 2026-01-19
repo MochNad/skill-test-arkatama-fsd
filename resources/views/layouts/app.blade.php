@@ -19,7 +19,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .pagination { display: flex; gap: 0.25rem; }
+        .pagination { display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: center; }
         .pagination > * { 
             display: inline-flex; 
             align-items: center; 
@@ -54,6 +54,10 @@
             cursor: not-allowed;
             border: 1px solid rgb(229, 231, 235);
         }
+        @media (max-width: 640px) {
+            .pagination > *:not(.active):not(:first-child):not(:last-child) { display: none; }
+            .pagination .active { display: inline-flex !important; }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-red-50 via-white to-red-50 min-h-screen font-sans antialiased">
@@ -62,28 +66,52 @@
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="{{ route('dashboard') }}" class="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
-                            <i class="fas fa-heart-pulse text-red-600 mr-2"></i>PetCare+
+                        <a href="{{ route('dashboard') }}" class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
+                            <i class="fas fa-heart-pulse text-red-600 mr-1 sm:mr-2"></i>PetCare+
                         </a>
                     </div>
-                    <div class="hidden sm:ml-10 sm:flex sm:space-x-1">
-                        <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
-                            <i class="fas fa-chart-line mr-2"></i>Dashboard
+                    <div class="hidden md:ml-6 lg:ml-10 md:flex md:space-x-1">
+                        <a href="{{ route('dashboard') }}" class="inline-flex items-center px-3 lg:px-4 py-2 border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
+                            <i class="fas fa-chart-line mr-1 lg:mr-2"></i><span class="hidden lg:inline">Dashboard</span><span class="lg:hidden">Home</span>
                         </a>
-                        <a href="{{ route('owners.index') }}" class="inline-flex items-center px-4 py-2 border-b-2 {{ request()->routeIs('owners.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
-                            <i class="fas fa-users mr-2"></i>Owners
+                        <a href="{{ route('owners.index') }}" class="inline-flex items-center px-3 lg:px-4 py-2 border-b-2 {{ request()->routeIs('owners.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
+                            <i class="fas fa-users mr-1 lg:mr-2"></i>Owners
                         </a>
-                        <a href="{{ route('pets.index') }}" class="inline-flex items-center px-4 py-2 border-b-2 {{ request()->routeIs('pets.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
-                            <i class="fas fa-paw mr-2"></i>Pets
+                        <a href="{{ route('pets.index') }}" class="inline-flex items-center px-3 lg:px-4 py-2 border-b-2 {{ request()->routeIs('pets.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
+                            <i class="fas fa-paw mr-1 lg:mr-2"></i>Pets
                         </a>
-                        <a href="{{ route('treatments.index') }}" class="inline-flex items-center px-4 py-2 border-b-2 {{ request()->routeIs('treatments.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
-                            <i class="fas fa-syringe mr-2"></i>Treatments
+                        <a href="{{ route('treatments.index') }}" class="inline-flex items-center px-3 lg:px-4 py-2 border-b-2 {{ request()->routeIs('treatments.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
+                            <i class="fas fa-syringe mr-1 lg:mr-2"></i><span class="hidden lg:inline">Treatments</span><span class="lg:hidden">Treat</span>
                         </a>
-                        <a href="{{ route('checkups.index') }}" class="inline-flex items-center px-4 py-2 border-b-2 {{ request()->routeIs('checkups.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
-                            <i class="fas fa-clipboard-check mr-2"></i>Checkups
+                        <a href="{{ route('checkups.index') }}" class="inline-flex items-center px-3 lg:px-4 py-2 border-b-2 {{ request()->routeIs('checkups.*') ? 'border-red-600 text-red-700 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:border-red-300 hover:bg-red-50' }} text-sm font-semibold transition-all duration-200 rounded-t-lg">
+                            <i class="fas fa-clipboard-check mr-1 lg:mr-2"></i><span class="hidden lg:inline">Checkups</span><span class="lg:hidden">Check</span>
                         </a>
                     </div>
                 </div>
+                <div class="flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500 transition-all duration-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-red-100 bg-white">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="{{ route('dashboard') }}" class="flex items-center px-3 py-2 rounded-lg {{ request()->routeIs('dashboard') ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }} text-base font-semibold transition-all duration-200">
+                    <i class="fas fa-chart-line mr-3 w-5"></i>Dashboard
+                </a>
+                <a href="{{ route('owners.index') }}" class="flex items-center px-3 py-2 rounded-lg {{ request()->routeIs('owners.*') ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }} text-base font-semibold transition-all duration-200">
+                    <i class="fas fa-users mr-3 w-5"></i>Owners
+                </a>
+                <a href="{{ route('pets.index') }}" class="flex items-center px-3 py-2 rounded-lg {{ request()->routeIs('pets.*') ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }} text-base font-semibold transition-all duration-200">
+                    <i class="fas fa-paw mr-3 w-5"></i>Pets
+                </a>
+                <a href="{{ route('treatments.index') }}" class="flex items-center px-3 py-2 rounded-lg {{ request()->routeIs('treatments.*') ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }} text-base font-semibold transition-all duration-200">
+                    <i class="fas fa-syringe mr-3 w-5"></i>Treatments
+                </a>
+                <a href="{{ route('checkups.index') }}" class="flex items-center px-3 py-2 rounded-lg {{ request()->routeIs('checkups.*') ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }} text-base font-semibold transition-all duration-200">
+                    <i class="fas fa-clipboard-check mr-3 w-5"></i>Checkups
+                </a>
             </div>
         </div>
     </nav>
@@ -98,5 +126,24 @@
 
         @yield('content')
     </main>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = this.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
